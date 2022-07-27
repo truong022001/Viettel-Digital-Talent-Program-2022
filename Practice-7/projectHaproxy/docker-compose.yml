@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+  xtlab-haproxy1:
+    build: haproxy
+    container_name: haproxy1
+    restart: unless-stopped
+    hostname: haproxy
+    # volumes:
+    #   - ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    ports:
+      - "8080:80"                         # Mở cổng 8080 public -> 80
+      - "443:443"                         # Mở cổng 443  public -> 443
+    cap_add:
+    - NET_ADMIN
+
+  xtlab-haproxy2:
+    build: haproxy
+    container_name: haproxy2
+    restart: unless-stopped
+    hostname: haproxy
+    ports:
+      - "8081:80"                         # Mở cổng 8080 public -> 80
+      - "444:443"                         # Mở cổng 443  public -> 443
+    cap_add:
+    - NET_ADMIN
+
+  nginx1:
+    container_name: nginx1
+    build: ./docker/nginx1
+    command: nginx -g "daemon off;"
+    ports:
+      - "3003:80"
+
+  nginx2:
+    container_name: nginx2
+    build: ./docker/nginx2
+    command: nginx -g "daemon off;"
+    ports:
+      - "3004:80"
+   
+
+
+
