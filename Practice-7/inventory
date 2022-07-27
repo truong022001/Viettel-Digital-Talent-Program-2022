@@ -1,0 +1,9 @@
+[monitor]
+localhost ansible_connection=local
+
+[node]
+192.168.56.101 ansible_ssh_user=truong01 ansible_ssh_pass=mothai12
+
+
+
+
